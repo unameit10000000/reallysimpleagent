@@ -4,17 +4,28 @@
   <p>Really simple AI Agent boilerplate code</p>
 </div>
 
-This is very basic and minimal ***command line interface (CLI)*** **AI Agent** built using the **Anthropic API** to perform tasks.
+This is an extremely basic and minimal ***command line interface (CLI)*** **AI Agent** built using the **Anthropic API** to perform tasks.
 
+## 💻 | Example Output 
+
+What the Basic CLI output looks like:
+
+![Basic CLI Output](images/cli_output1.png)
+
+Automated task feature in action:
+
+![Crypto Tracking Output](images/cli_output2.png)
+
+## 🔤 | About
 Currently the tracking of cryptocurrency prices is supported, however there are placeholders for fetching weather, performing calculations and providing Wikipedia search results, both which have yet to be implemented. (feel free to fork and submit a PR) Furthermore the Agent CLI provides a interactive chat, similar to ChatGPT and different language models are supported. (Haiku, Sonnet)
 
-## Most recent update 🆕
+## ✅ | Most recent update 
 - Added cryptocurrency price tracking functionality
 - Implemented automated scheduling system
 - Added real-time console notifications for scheduled tasks
 - Integrated price data logging to file system
 
-## Features and Actions 🌟
+## 🌟 | Features and Actions 
 - **Interactive CLI**: Engage with the assistant through simple text prompts.
 - **Colorful Output**: Responses are formatted with color using the `colorama` library.
 - **Multiple Models**: Supports models from the Anthropic API (like Haiku and Sonnet).
@@ -22,15 +33,15 @@ Currently the tracking of cryptocurrency prices is supported, however there are 
 - **Cryptocurrency Price Tracking**: Automated price tracking for crypto.
 - **Scheduled Tasks**: Background task scheduling for continuous price monitoring.
 
-### Action Support (Placeholders) ⚠️
+### Action Support (Placeholders)
 The assistant currently has placeholders for actions such as:
 - Searching Wikipedia 📚
 - Performing calculations ➗
 - Fetching weather updates 🌤️
 
-## Setup 🛠️
+## 🛠️ | Setup
 
-### Windows Setup 💻
+### Windows Setup 
 1. **Clone (or download) and cd into the repository:**
    ```bash
    git clone https://github.com/unameit10000000/reallysimpleagent.git
@@ -92,7 +103,7 @@ The assistant currently has placeholders for actions such as:
 
    This will start the CLI and prompt you to interact with the assistant.
 
-## Example Usage 💡
+## 💡| Example Usage 
 
 ### Basic Interaction
 ```
@@ -120,16 +131,6 @@ Crypto price tracking has been started. Prices will be updated every 5 minutes.
 [CRON] Fetching crypto prices at 2024-03-14 15:30:00
 ```
 
-## Example Output 🖼️
-
-Here's what the basic CLI output looks like:
-
-![Basic CLI Output](images/cli_output1.png)
-
-And here's the cryptocurrency tracking feature in action:
-
-![Crypto Tracking Output](images/cli_output2.png)
-
-## Contributions ❤️
+## ❤️ | Contributions 
 - **TypeScript Implementation:** If anyone can build or has a typeScript implementation similar to this assistant please submit a pull-request or hit me up.
 - **Bugs:** Please let me know if you encounter bugs and/or something is wrong.✌️
