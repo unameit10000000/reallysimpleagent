@@ -1,12 +1,15 @@
-import os, re
 import anthropic
+import os, re, time
+import requests
+import schedule
+import threading
 from colorama import init, Fore
 from dotenv import load_dotenv
+from datetime import datetime
 
-# Load environment variables
 load_dotenv()
 
-API_KEY = os.getenv('API_KEY')  # Ensure your .env file has the correct API key
+API_KEY = os.getenv('API_KEY')
 
 class AIAgent:
     def __init__(self, system_prompt, anthropic_api_key):
@@ -15,111 +18,136 @@ class AIAgent:
         self.actions = {
             "search": self.search_wikipedia,
             "calculate": self.calculate,
-            "get_weather": self.get_weather
+            "get_weather": self.get_weather,
+            "get_crypto": self.get_crypto_data,
+            "start_cron": self.start_crypto_scheduler
         }
-        # Initialize the anthropic client properly with the API key
-        self.anthropic_client = anthropic.Client(api_key=anthropic_api_key)  # Correct client initialization
-
-        # Define available models
+        self.anthropic_client = anthropic.Client(api_key=anthropic_api_key)
         self.models = {
-            "haiku": "claude-3-5-haiku-latest",  # fastest
-            "sonnet": "claude-3-5-sonnet-latest",  # smartest
-            "sonnet-20241022": "claude-3-5-sonnet-latest", 
+            "haiku": "claude-3-haiku-20240307",
+            "sonnet": "claude-3-sonnet-20240229",
         }
+        self.scheduler_running = False
 
+    # TODO: Implement this
     def search_wikipedia(self, query):
-        # Placeholder for Wikipedia search logic
         return f"Search result for {query}"
 
+    # TODO: Implement this
     def calculate(self, expression):
-        # Evaluate the mathematical expression
         return eval(expression)
 
+    # TODO: Implement this
     def get_weather(self, city):
-        # Placeholder for weather fetching logic
         return f"Weather data for {city} is 72°F and sunny."
+
+    # Fetch cryptocurrency prices
+    def get_crypto_data(self):
+        url = "https://api.coingecko.com/api/v3/simple/price?ids=solana,ripple&vs_currencies=usd"
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            solana_price = data['solana']['usd']
+            xrp_price = data['ripple']['usd']
+            return f"Solana: ${solana_price}, XRP: ${xrp_price}"
+        else:
+            return "Error fetching crypto data."
+
+    def save_crypto_data(self):
+        crypto_data = self.get_crypto_data()
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print(f"\n{Fore.GREEN}[CRON] Fetching crypto prices at {timestamp}")
+        with open("crypto_prices.txt", "a") as file:
+            file.write(f"{timestamp} - {crypto_data}\n")
+
+    def run_scheduler(self):
+        while self.scheduler_running:
+            schedule.run_pending()
+            time.sleep(1)
+
+    def start_crypto_scheduler(self):
+        if not self.scheduler_running:
+            self.scheduler_running = True
+            
+            # Run every 1 minutes
+            schedule.every(1).minutes.do(self.save_crypto_data)
+            
+            # Fetch immediately
+            self.save_crypto_data()
+            
+            # Start a separate thread
+            scheduler_thread = threading.Thread(target=self.run_scheduler)
+            scheduler_thread.daemon = True
+            scheduler_thread.start()
+            
+            return "Crypto price tracking has been started. Prices will be updated every 1 minutes."
+        return "Scheduler is already running."
 
     def execute(self, user_input, model_choice="sonnet"):
         self.messages.append({"role": "user", "content": user_input})
-
-        # Construct the conversation history without the system message
-        conversation_history = [msg for msg in self.messages if msg['role'] != 'system']  # Exclude system role
+        conversation_history = [msg for msg in self.messages if msg['role'] != 'system']
 
         try:
-            # Choose the model based on user input or predefined option
-            selected_model = self.models.get(model_choice, self.models["sonnet"])  # Default to "sonnet" if invalid choice
+            selected_model = self.models.get(model_choice, self.models["sonnet"])
 
-            # Call the API using the correct method and the required arguments
             response = self.anthropic_client.messages.create(
-                model=selected_model,  # Use the selected model here
-                messages=conversation_history,  # Pass only the user and assistant messages
-                system=self.system_prompt,  # Pass the system prompt here separately
-                max_tokens=1000,  # Ensure max_tokens is set
+                model=selected_model,
+                messages=conversation_history,
+                system=self.system_prompt,
+                max_tokens=1000,
                 temperature=0.2,
                 top_p=1.0,
             )
 
-            # Check if the response contains a 'content' field and extract the text
             if hasattr(response, 'content') and isinstance(response.content, list):
-                # Extract text from the first TextBlock in the content list
                 assistant_message = response.content[0].text
             else:
                 raise ValueError(f"Unexpected response structure: {response}")
 
-            # Append the assistant message to the conversation
             self.messages.append({"role": "assistant", "content": assistant_message})
 
-            # Check if an action is specified in the assistant's message
-            action_match = re.search(r'Action: (\w+): (.*)', assistant_message)
-            if action_match:
-                action, action_input = action_match.groups()
-                if action in self.actions:
-                    result = self.actions[action](action_input)
-                    self.messages.append({"role": "system", "content": f"Observation: {result}"})
-                else:
-                    self.messages.append({"role": "system", "content": f"Error: Unknown action {action}"})
+            if 'cron' in user_input.lower() or 'schedule' in user_input.lower():
+                result = self.start_crypto_scheduler()
+                return result
+            elif 'crypto' in user_input.lower():
+                crypto_result = self.get_crypto_data()
+                return crypto_result
             else:
+                action_match = re.search(r'Action: (\w+): (.*)', assistant_message)
+                if action_match:
+                    action, action_input = action_match.groups()
+                    if action in self.actions:
+                        result = self.actions[action](action_input)
+                        self.messages.append({"role": "system", "content": f"Observation: {result}"})
+                    else:
+                        self.messages.append({"role": "system", "content": f"Error: Unknown action {action}"})
                 return assistant_message
 
         except Exception as e:
             return f"Error: {str(e)}"
 
-
 # Initialize colorama
 init(autoreset=True)
 
+# Helper function to print assistant's response
 def pretty_print_response(assistant_message):
-    # Split the message into the numbered steps
-    steps = assistant_message.split('\n\n')
-    
-    # Start with a header
     print(Fore.GREEN + "Assistant's Response:")
+    print(Fore.YELLOW + f"{assistant_message}\n")
 
-    # Loop through each step and print it with appropriate numbering
-    for idx, step in enumerate(steps, 1):
-        print(Fore.CYAN + f"Step {idx}:")
-        print(Fore.YELLOW + f"{step.strip()}\n")
-
-
+# Main loop
 def run():
-    # Initialize the AI agent with a system prompt and Anthropic API key
     anthropic_api_key = API_KEY
-    agent = AIAgent("You are a helpful assistant that can search Wikipedia, perform calculations, and check the weather. Your responses are short and sweet.", anthropic_api_key)
+    agent = AIAgent("You are a helpful assistant that can search Wikipedia, perform calculations, check the weather, fetch cryptocurrency prices, and manage scheduling tasks. Your responses are concise.", anthropic_api_key)
 
     while True:
-        # Get user input prompt
         user_input = input(Fore.MAGENTA + "Enter your question (or type 'exit' to quit): ")
 
         if user_input.lower() == 'exit':
             print(Fore.RED + "Exiting... Goodbye!")
             break
 
-        # Execute the agent with the provided user input
         response = agent.execute(user_input, model_choice="haiku")
-
-        # Pretty print the response with colors
         pretty_print_response(response)
 
-# Start the main program
 if __name__ == "__main__":
     run()

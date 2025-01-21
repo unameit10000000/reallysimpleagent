@@ -1,15 +1,22 @@
 # Really Simple Agent 🤖
 
-This project is a **minimal Command Line Interface (CLI)** assistant built using the **Anthropic API** to handle natural language processing (NLP) tasks. It assists with fetching weather, performing calculations, and providing Wikipedia search results. The output is clean, colorful, and interactive.
+This is very basic and minimal ***command line interface (CLI)*** **AI Agent** built using the **Anthropic API** to perform tasks.
 
-The assistant utilizes different language models to generate responses, which are color-coded for clarity and a pleasant user experience.
+Currently the tracking of cryptocurrency prices is supported, however there are placeholders for fetching weather, performing calculations and providing Wikipedia search results, both which have yet to be implemented. (feel free to fork and submit a PR) Furthermore the Agent CLI provides a interactive chat, similar to ChatGPT and different language models are supported. (Haiku, Sonnet)
 
-## Features 🌟
+## Most recent update 🆕
+- Added cryptocurrency price tracking functionality
+- Implemented automated scheduling system
+- Added real-time console notifications for scheduled tasks
+- Integrated price data logging to file system
 
+## Features and Actions 🌟
 - **Interactive CLI**: Engage with the assistant through simple text prompts.
 - **Colorful Output**: Responses are formatted with color using the `colorama` library.
 - **Multiple Models**: Supports models from the Anthropic API (like Haiku and Sonnet).
 - **Dynamic User Input**: Accepts user queries and responds accordingly.
+- **Cryptocurrency Price Tracking**: Automated price tracking for crypto.
+- **Scheduled Tasks**: Background task scheduling for continuous price monitoring.
 
 ### Action Support (Placeholders) ⚠️
 The assistant currently has placeholders for actions such as:
@@ -17,12 +24,9 @@ The assistant currently has placeholders for actions such as:
 - Performing calculations ➗
 - Fetching weather updates 🌤️
 
-However, **these features are not implemented** yet. If you're interested, feel free to **contribute** and implement them yourself!
-
 ## Setup 🛠️
 
 ### Windows Setup 💻
-
 1. **Clone (or download) and cd into the repository:**
    ```bash
    git clone https://github.com/unameit10000000/reallysimpleagent.git
@@ -57,6 +61,7 @@ However, **these features are not implemented** yet. If you're interested, feel 
    python-dotenv
    anthropic
    colorama
+   schedule
    ```
 
    You can install them by running:
@@ -83,31 +88,44 @@ However, **these features are not implemented** yet. If you're interested, feel 
 
    This will start the CLI and prompt you to interact with the assistant.
 
-## Example 💡
+## Example Usage 💡
 
-Once the assistant is running, it will prompt you for input, and you can ask questions like:
-
+### Basic Interaction
 ```
 Enter your question (or type 'exit' to quit): What's the capital of France?
 ```
 
-The assistant will respond with a colorful, well-formatted answer, similar to:
+The assistant will respond with a colorful, well-formatted answer:
 
 ```
 Assistant's Response:
 Step 1: The capital of France is Paris.
 ```
 
+### Cryptocurrency Tracking
+```
+Enter your question (or type 'exit' to quit): Can you track crypto prices for me?
+```
+
+The assistant will start tracking cryptocurrency prices and show:
+
+```
+Assistant's Response:
+Crypto price tracking has been started. Prices will be updated every 5 minutes.
+
+[CRON] Fetching crypto prices at 2024-03-14 15:30:00
+```
+
 ## Example Output 🖼️
 
-Here’s what the output looks like when interacting with the assistant:
+Here's what the basic CLI output looks like:
 
-![CLI Output](output.png)
+![Basic CLI Output](images/cli_output1.png)
 
-## Notes 💻
+And here's the cryptocurrency tracking feature in action:
 
-While actions like searching Wikipedia, performing calculations, and fetching weather updates are not yet implemented, **anyone can do so** Feel free to fork and/or clone the repository.
+![Crypto Tracking Output](images/cli_output2.png)
 
-### TypeScript Implementation Wishlist ❤️
-
-If anyone can build or has a **TypeScript implementation** similar to this assistant please submit a pull-request or hit me up✌️
+## Contributions ❤️
+- **TypeScript Implementation:** If anyone can build or has a typeScript implementation similar to this assistant please submit a pull-request or hit me up.
+- **Bugs:** Please let me know if you encounter bugs and/or something is wrong.✌️
