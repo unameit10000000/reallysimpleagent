@@ -17,13 +17,7 @@ Automated task feature in action:
 ![Crypto Tracking Output](images/cli_output2.png)
 
 ## 🔤 | About
-Currently the tracking of cryptocurrency prices is supported, however there are placeholders for fetching weather, performing calculations and providing Wikipedia search results, both which have yet to be implemented. (feel free to fork and submit a PR) Furthermore the Agent CLI provides a interactive chat, similar to ChatGPT and different language models are supported. (Haiku, Sonnet)
-
-## ✅ | Most recent update 
-- Added cryptocurrency price tracking functionality
-- Implemented automated scheduling system
-- Added real-time console notifications for scheduled tasks
-- Integrated price data logging to file system
+Currently the tracking of cryptocurrency prices is supported, however there are placeholders for fetching weather, performing calculations and providing Wikipedia search results, both which have yet to be implemented. (feel free to fork and submit a PR) Furthermore the Agent CLI provides a interactive chat, similar to ChatGPT and different language models are supported. (Haiku, Sonnet). Additionally, the agent now uses AI-driven command interpretation instead of keyword matching, making it a bit more 'intelligent'.
 
 ## 🌟 | Features and Actions 
 - **Interactive CLI**: Engage with the assistant through simple text prompts.
@@ -134,3 +128,18 @@ Crypto price tracking has been started. Prices will be updated every 5 minutes.
 ## ❤️ | Contributions 
 - **TypeScript Implementation:** If anyone can build or has a typeScript implementation similar to this assistant please submit a pull-request or hit me up.
 - **Bugs:** Please let me know if you encounter bugs and/or something is wrong.✌️
+
+## ✅ | Latest updates
+### 0.1
+- Improved system prompt with detailed command structure
+- Split actions into automated and one-time tasks
+- Implemented AI-driven command interpretation
+- Added welcome message with available commands
+- Enhanced error handling and response formatting
+- Expanded cryptocurrency tracking capabilities
+
+### 0.0
+- Added cryptocurrency price tracking functionality
+- Implemented automated scheduling system
+- Added real-time console notifications for scheduled tasks
+- Integrated price data logging to file system
