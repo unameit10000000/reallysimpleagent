@@ -23,7 +23,13 @@ However, **these features are not implemented** yet. If you're interested, feel 
 
 ### Windows Setup 💻
 
-1. **Clone the Repository** or download the code to your local machine.
+1. **Clone (or download) and cd into the repository:**
+   ```bash
+   git clone https://github.com/unameit10000000/reallysimpleagent.git
+   ```
+   ```bash
+   cd reallysimpleagent
+   ```
 
 2. **Create a Virtual Environment**:
 
