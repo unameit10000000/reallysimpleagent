@@ -1,4 +1,8 @@
-# Really Simple Agent 🤖
+<div align="center">
+  <img src="images/rsag.png" alt="Really Simple AI Agent Image" width="256"/>
+  <h1>Really Simple Agent</h1>
+  <p>Really simple AI Agent boilerplate code</p>
+</div>
 
 This is very basic and minimal ***command line interface (CLI)*** **AI Agent** built using the **Anthropic API** to perform tasks.
 
