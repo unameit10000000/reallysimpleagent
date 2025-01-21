@@ -1,8 +1,7 @@
+import os, re
 import anthropic
-import os
-from dotenv import load_dotenv
-import re
 from colorama import init, Fore
+from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
