@@ -62,19 +62,6 @@ The assistant currently has placeholders for actions such as:
 
 4. **Install Dependencies**:
 
-   This project requires the following Python packages:
-
-   ```bash
-   httpx
-   requests
-   python-dotenv
-   anthropic
-   colorama
-   schedule
-   ```
-
-   You can install them by running:
-
    ```bash
    pip install -r .\requirements.txt
    ```
