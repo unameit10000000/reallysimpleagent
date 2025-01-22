@@ -16,23 +16,6 @@ Automated task feature in action:
 
 ![Crypto Tracking Output](images/cli_output2.png)
 
-## 🔤 | About
-Currently the tracking of cryptocurrency prices is supported, however there are placeholders for fetching weather, performing calculations and providing Wikipedia search results, both which have yet to be implemented. (feel free to fork and submit a PR) Furthermore the Agent CLI provides a interactive chat, similar to ChatGPT and different language models are supported. (Haiku, Sonnet). Additionally, the agent now uses AI-driven command interpretation instead of keyword matching, making it a bit more 'intelligent'.
-
-## 🌟 | Features and Actions 
-- **Interactive CLI**: Engage with the assistant through simple text prompts.
-- **Colorful Output**: Responses are formatted with color using the `colorama` library.
-- **Multiple Models**: Supports models from the Anthropic API (like Haiku and Sonnet).
-- **Dynamic User Input**: Accepts user queries and responds accordingly.
-- **Cryptocurrency Price Tracking**: Automated price tracking for crypto.
-- **Scheduled Tasks**: Background task scheduling for continuous price monitoring.
-
-### Action Support (Placeholders)
-The assistant currently has placeholders for actions such as:
-- Searching Wikipedia 📚
-- Performing calculations ➗
-- Fetching weather updates 🌤️
-
 ## 🛠️ | Setup
 
 ### Windows Setup 
@@ -111,6 +94,23 @@ Crypto price tracking has been started. Prices will be updated every 5 minutes.
 
 [CRON] Fetching crypto prices at 2024-03-14 15:30:00
 ```
+
+## 🔤 | About
+Currently the tracking of cryptocurrency prices is supported, however there are placeholders for fetching weather, performing calculations and providing Wikipedia search results, both which have yet to be implemented. (feel free to fork and submit a PR) Furthermore the Agent CLI provides a interactive chat, similar to ChatGPT and different language models are supported. (Haiku, Sonnet). Additionally, the agent now uses AI-driven command interpretation instead of keyword matching, making it a bit more 'intelligent'.
+
+## 🌟 | Features and Actions 
+- **Interactive CLI**: Engage with the assistant through simple text prompts.
+- **Colorful Output**: Responses are formatted with color using the `colorama` library.
+- **Multiple Models**: Supports models from the Anthropic API (like Haiku and Sonnet).
+- **Dynamic User Input**: Accepts user queries and responds accordingly.
+- **Cryptocurrency Price Tracking**: Automated price tracking for crypto.
+- **Scheduled Tasks**: Background task scheduling for continuous price monitoring.
+
+### Action Support (Placeholders)
+The assistant currently has placeholders for actions such as:
+- Searching Wikipedia 📚
+- Performing calculations ➗
+- Fetching weather updates 🌤️
 
 ## ❤️ | Contributions 
 - **TypeScript Implementation:** If anyone can build or has a typeScript implementation similar to this assistant please submit a pull-request or hit me up.
